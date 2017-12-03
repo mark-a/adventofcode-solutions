@@ -8,20 +8,18 @@ fn main() {
 
     let workset: Vec<_> = input_lines[0].split("").filter_map(|n| n.parse::<i32>().ok()).collect();
     let mut sum = 0;
-    for (i,digit) in workset.iter().enumerate() {
-    	let next: usize = if i < workset.len() - 1 {
-	  (i+1)  as usize
-	} else{
-	  0 as usize
-	};
+    for (i, digit) in workset.iter().enumerate() {
+        let next: usize = if i < workset.len() - 1 {
+            (i + 1) as usize
+        } else {
+            0 as usize
+        };
 
-	if *digit == workset[next] {
-	        println!("adding number at index {} because {} = {}", i, *digit, workset[next]);
-		sum = sum + *digit;
-	}
-
+        if *digit == workset[next] {
+            println!("adding number at index {} because {} = {}", i, *digit, workset[next]);
+            sum = sum + *digit;
+        }
     }
 
     println!("the solution is {}", sum);
-
 }
