@@ -2,7 +2,7 @@ use std::io::{BufRead, BufReader};
 use std::fs::File;
 
 fn main() {
-    let input_file = BufReader::new(File::open("input.txt").unwrap());
+    let input_file = BufReader::new(File::open("input").unwrap());
     let mut input_lines: Vec<_> = input_file.lines().map(|line| { line.unwrap() }).collect();
     assert!(input_lines.len() > 0, "empty input");
 
