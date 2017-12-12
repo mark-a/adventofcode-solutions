@@ -2,6 +2,10 @@ use std::io::{BufRead, BufReader};
 use std::fs::File;
 use std::collections::HashMap;
 
+use std::io;
+use std::io::prelude::*;
+
+
 fn main() {
     let input_file = BufReader::new(File::open("input").unwrap());
     let input_lines: Vec<_> = input_file.lines().map(|line| { line.unwrap() }).collect();
@@ -95,4 +99,9 @@ fn main() {
             }
         }
     }
+
+
+    let mut stdin = io::stdin();
+    // Read a single byte and discard
+    let _ = stdin.read(&mut [0u8]).unwrap();
 }
