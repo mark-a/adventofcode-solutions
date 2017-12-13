@@ -11,6 +11,10 @@ fn main() {
     let mut y :i32 = 0;
     let mut z :i32 = 0;
 
+    let mut max_x :i32 = 0;
+    let mut max_y :i32 = 0;
+    let mut max_z :i32 = 0;
+
     for movement in moves {
         match movement.as_ref() {
             "n" => {
@@ -39,11 +43,20 @@ fn main() {
             }
             _ => {}
         }
+        if x.abs() > max_x {
+            max_x = x;
+        }
+        if y.abs() > max_y {
+            max_y = y;
+        }
+        if z.abs() > max_z {
+            max_z = z;
+        }
     }
 
-    let mut sorter = vec![x.abs(),y.abs(),z.abs()];
+    let mut sorter = vec![max_x.abs(),max_y.abs(),max_z.abs()];
     sorter.sort_by(|a, b| b.cmp(a));
 
     // biggest direction on the 3 dimensional cube
-    println!("minimum {} steps", sorter[0]);
+    println!("stepped a maximum of {} steps away", sorter[0]);
 }
