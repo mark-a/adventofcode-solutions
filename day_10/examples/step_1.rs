@@ -1,63 +1,40 @@
 use std::io::{BufRead, BufReader};
 use std::fs::File;
+use std::cmp;
 
 fn main() {
     let input_file = BufReader::new(File::open("input").unwrap());
     let input_lines: Vec<_> = input_file.lines().map(|line| { line.unwrap() }).collect();
     assert!(input_lines.len() > 0, "empty input");
-    let mut chars: Vec<char> = input_lines[0].chars().collect();
+    let input_lengths: Vec<usize> = input_lines[0].split(",").filter_map(|n| n.parse::<usize>().ok()).collect();
 
-
-    let mut total_value = 0;
-    let mut local_value = 0;
-    let mut garbage_mode = false;
-    let mut ignore_mode = false;
-    let mut garbage_counter = 0;
-
-    for character in chars {
-        if !ignore_mode {
-            match character {
-                '!' => {
-                    ignore_mode = true;
-                },
-                '<' => {
-                    if !garbage_mode{
-                        garbage_mode = true;
-                    }else{
-                        garbage_counter+=1;
-                    }
-                },
-                '>' => {
-                    garbage_mode = false;
-                },
-                '{' => {
-                    if !garbage_mode{
-                        local_value += 1;
-                    }else{
-                        garbage_counter+=1;
-                    }
-                },
-                '}' => {
-                    if !garbage_mode{
-                        total_value += local_value;
-                        local_value -= 1;
-                    }else{
-                        garbage_counter+=1;
-                    }
-                },
-                _ => {
-                    if garbage_mode {
-                        garbage_counter+=1;
-                    }
-
-                },
-            }
-        } else {
-            ignore_mode = false;
-        }
+    let mut work_array = [0; 256];
+    for i in  0..256 {
+        work_array[i] = i;
     }
 
-    println!("total: {}",total_value);
+    let mut skip = 0;
+    let mut position= 0;
+    for input in input_lengths {
+        println!("{:?}",work_array.to_vec());
+        let max =  cmp::min(work_array.len() - position, input);
+        let wrapped = input - max;
+        let mut take = vec![];
+        take.extend_from_slice(&work_array[position..position+max]);
+        take.extend_from_slice(&work_array[..wrapped]);
+        take.reverse();
+        println!("{:?}",take);
+        for (i, number) in take.iter().enumerate(){
+            let input_point = (position + i) % work_array.len();
+            work_array[input_point] = *number;
+        }
 
-    println!("garbage: {}",garbage_counter);
+        position =  (position + input + skip) % work_array.len();
+        skip += 1;
+    }
+
+    println!("{} * {} = {}", work_array[0],work_array[1],work_array[0] * work_array[1])
+
+
+
 }
