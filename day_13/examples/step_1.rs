@@ -17,9 +17,10 @@ fn main() {
 
     let mut severity = 0;
     for step in 0..highest+1 {
-        match scanners.get(step) {
+        match scanners.get(&step) {
             Some(scanner_depth) => {
-                if step {
+                // one circular motion takes n + n - 2 steps
+                if step % (scanner_depth + scanner_depth - 2) == 0{
                     severity += step* scanner_depth;
                 }
             },
