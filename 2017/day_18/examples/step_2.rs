@@ -2,7 +2,8 @@ use std::io::{BufRead, BufReader};
 use std::fs::File;
 use std::collections::HashMap;
 use std::thread;
-use std::sync::mpsc::{channel,Sender,Receiver};
+use std::sync::mpsc::{channel, Sender, Receiver};
+use std::time::Duration;
 
 fn main() {
     let input_file = BufReader::new(File::open("input").unwrap());
@@ -14,11 +15,11 @@ fn main() {
 
     let input_clone = input_lines.clone();
 
-    thread::spawn(move|| {
+    thread::spawn(move || {
         let mut program0 = Program {
             program_id: 0,
-            sender:  p1_tx,
-            receiver:  p0_rx,
+            sender: p0_tx,
+            receiver: p1_rx,
             send_counter: 0,
         };
 
@@ -27,84 +28,88 @@ fn main() {
 
     let mut program1 = Program {
         program_id: 1,
-        sender: p0_tx,
-        receiver: p1_rx,
+        sender: p1_tx,
+        receiver: p0_rx,
         send_counter: 0,
     };
 
     program1.run(input_lines);
-    println!("{}",program1.send_counter);
+    println!("Program 1 terminates with send count {}", program1.send_counter);
 }
 
 struct Program {
     program_id: i64,
-    sender:  Sender<i64>,
+    sender: Sender<i64>,
     receiver: Receiver<i64>,
-    send_counter : i64,
+    send_counter: i64,
 }
 
 impl Program {
     fn run(&mut self, input_lines: Vec<String>) {
         let mut register = HashMap::new();
         register.insert('p', self.program_id);
-
         let mut line_number: i32 = 0;
         while line_number < input_lines.len() as i32 {
             let line = &input_lines[line_number as usize];
             let instruct_parts: Vec<_> = line.split_whitespace().collect();
             let register_name = instruct_parts[1].chars().nth(0).unwrap();
-            let register2 = &register.clone();
-            let register_entry = register.entry(register_name).or_insert(0 as i64);
-            let mut partner: i64 = 0;
+
+            let mut value: i64 = 0;
             if instruct_parts.len() > 2 {
-                partner = match instruct_parts[2].parse::<i64>() {
+                value = match instruct_parts[2].parse::<i64>() {
                     Ok(n) => n,
                     Err(_) => {
-                        let partner_register_name = instruct_parts[2].chars().nth(0).unwrap();
-                        *register2.get(&partner_register_name).unwrap_or(&0)
+                        let value_register_name = instruct_parts[2].chars().nth(0).unwrap();
+                        *(&mut register).get(&value_register_name).unwrap_or(&0)
                     }
                 };
             }
 
+            let register_entry = register.entry(register_name).or_insert(0 as i64);
+
+            let comparer;
+            if !register_name.is_digit(10) {
+                comparer = *register_entry;
+            } else {
+                comparer = instruct_parts[1].parse::<i64>().unwrap();
+            }
+
             match instruct_parts[0] {
                 "snd" => {
-                    self.sender.send(*register_entry);
+                    self.sender.send(comparer).expect("Could not send to channel");
                     self.send_counter += 1;
-                    println!("{}::{}: send value : {}",self.program_id, line_number, *register_entry);
                     line_number += 1;
                 }
                 "set" => {
-                    *register_entry = partner;
-                    println!("{}::{}: set {} to {}",self.program_id, line_number, register_name, partner);
+                    *register_entry = value;
                     line_number += 1;
                 }
                 "add" => {
-                    *register_entry += partner;
-                    println!("{}::{}: add {} to {}",self.program_id, line_number, partner, register_name);
+                    *register_entry += value;
                     line_number += 1;
                 }
                 "mul" => {
-                    *register_entry *= partner;
-                    println!("{}::{}: multiply {} by {}",self.program_id, line_number, register_name, partner);
+                    *register_entry *= value;
                     line_number += 1;
                 }
                 "mod" => {
-                    if partner > 0 {
-                        *register_entry = *register_entry % partner;
-                        println!("{}::{}: set {} to itself modulo {}",self.program_id, line_number, register_name, partner);
+                    if value > 0 {
+                        *register_entry = *register_entry % value;
                     }
                     line_number += 1;
                 }
                 "rcv" => {
-                    let received_value = self.receiver.recv().unwrap();
-                    *register_entry = received_value;
-                    println!("{}::{}: received value: {}",self.program_id, line_number, received_value);
-                    line_number += 1;
+                    // used a timeout of 100 milliseconds as criteria for a deadlock
+                    if let Ok(received_value) = self.receiver.recv_timeout(Duration::from_millis(100)) {
+                        *register_entry = received_value;
+                        line_number += 1;
+                    } else {
+                        break;
+                    }
                 }
                 "jgz" => {
-                    if *register_entry > 0 {
-                        line_number += partner as i32;
-                        println!("{}::{}: jumped to: {} because register value is {}",self.program_id, line_number, line_number, *register_entry);
+                    if comparer > 0 {
+                        line_number += value as i32;
                     } else {
                         line_number += 1;
                     }
