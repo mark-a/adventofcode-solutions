@@ -1,6 +1,5 @@
 fn main() {
     let mut buffer: Vec<i32> = vec![0];
-    buffer.reserve_exact(49999999);
     let input: i32 = 343;
     let mut insert_point = 0;
     for i in 1..2018 {
@@ -11,7 +10,6 @@ fn main() {
 
     let index = buffer.iter().position(|&r| r == 2017).unwrap();
     println!("after 2017 iterations after value \"2017\" there is {:?}", buffer[index + 1]);
-
 
     /* inserting in a buffer becomes inefficient fast
     the position of zero never changes so we only need
@@ -25,6 +23,5 @@ fn main() {
         insert_point += 1;
     }
 
-
-    println!(" after 50000000 iterations after value \"0\" there is {:?}", value_after_zero);
+    println!("after 50000000 iterations after value \"0\" there is {:?}", value_after_zero);
 }
