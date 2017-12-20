@@ -11,7 +11,7 @@ struct Particle {
     position: (i64, i64, i64),
     acceleration: (i64, i64, i64),
     velocity: (i64, i64, i64),
-    index: i32,
+    index: usize,
     destroyed: bool,
 }
 
@@ -46,7 +46,7 @@ fn main() {
         particle_counter += 1;
         for cap in particle_regex.captures_iter(&line) {
             particles.push(Particle {
-                index: particle_counter,
+                index: particle_counter as usize,
                 destroyed: false,
                 position: (cap[1].parse::<i64>().unwrap(),
                            cap[2].parse::<i64>().unwrap(),
@@ -61,38 +61,37 @@ fn main() {
             });
         }
     }
-
-    for _ in 0..10000 {
+    let max = 10000;
+    for _ in 0..max {
         let mut collision_scanner = HashMap::new();
         for particle in &mut particles {
             particle.tick();
             if !particle.destroyed {
-                let seen_count = collision_scanner.entry(format!("{}:{}:{}",
-                                                                 particle.position.0,
-                                                                 particle.position.1,
-                                                                 particle.position.2
-                )).or_insert((0, Vec::new()));
+                let seen_count = collision_scanner.entry((particle.position.0,
+                                                          particle.position.1,
+                                                          particle.position.2)
+                ).or_insert((0, Vec::new()));
                 (*seen_count).0 += 1;
                 (*seen_count).1.push(particle.index);
             }
         }
-        for (position, (count,par_indices)) in collision_scanner.into_iter() {
+        for (position, (count, par_indices)) in collision_scanner.into_iter() {
             if count > 1 {
                 for i in par_indices {
-                    particles[i as usize].destroyed = true;
+                    particles[i].destroyed = true;
                 }
             }
         }
     }
 
     let p_min = &particles.iter().min_by(|a, b| a.distance_to_origin().cmp(&b.distance_to_origin()));
-    println!("min {:?}", p_min);
+    println!("min after {} steps: {:?}",max, p_min);
 
     let mut num_alive = 0;
     for particle in &particles {
         if !particle.destroyed {
-            num_alive+= 1;
+            num_alive += 1;
         }
     }
-    println!("alive count {}", num_alive);
+    println!("alive count after {} steps: {}",max, num_alive);
 }
