@@ -1,0 +1,64 @@
+
+Advent of Code <https://adventofcode.com/>
+
+  * [About] <https://adventofcode.com/2017/about>
+  * [AoC++] <https://adventofcode.com/2017/support>
+  * [Events] <https://adventofcode.com/2017/events>
+  * [Settings] <https://adventofcode.com/2017/settings>
+  * [Log Out] <https://adventofcode.com/2017/auth/logout>
+
+mark-a 50*
+
+
+   var y=2017 <https://adventofcode.com/2017>;
+
+  * [Calendar] <https://adventofcode.com/2017>
+  * [Leaderboard] <https://adventofcode.com/2017/leaderboard>
+  * [Stats] <https://adventofcode.com/2017/stats>
+  * [Sponsors] <https://adventofcode.com/2017/sponsors>
+
+Our sponsors <https://adventofcode.com/2017/sponsors> help make Advent
+of Code possible:
+
+SmartyStreets <http://smartystreets.com/aoc> - U2VuZGluZyBDaH
+Jpc3RtYXMgY2Fy ZHMgdG8gYmFkIG FkZHJlc3Nlcz8K
+
+By popular demand, there are now AoC-themed objects available (until
+Jan. 3rd)! Get them shipped from the US
+<https://teespring.com/advent-of-code> or from Europe
+<https://teespring.com/advent-of-code-eu>.
+
+These are your personal leaderboard statistics. /Rank/ is your position
+on that leaderboard: 1 means you were the first person to get that star,
+2 means the second, 100 means the 100th, etc. /Score/ is the number of
+points you got for that rank: 100 for 1st, 99 for 2nd, ..., 1 for 100th,
+and 0 otherwise.
+
+      -------Part 1--------   -------Part 2--------
+Day       Time  Rank  Score       Time  Rank  Score
+ 25   15:01:45  2696      0   18:21:08  2469      0
+ 24       >24h  3076      0       >24h  3027      0
+ 23   04:34:22  1709      0   08:02:18  1411      0
+ 22       >24h  4204      0       >24h  4090      0
+ 21       >24h  3948      0       >24h  3875      0
+ 20   05:14:04  2174      0   05:45:13  1712      0
+ 19   17:42:16  4198      0   17:46:05  4117      0
+ 18   07:21:50  2730      0   13:31:44  2436      0
+ 17   04:48:45  2340      0   06:17:29  2362      0
+ 16   05:07:01  2254      0   06:02:54  1748      0
+ 15   02:48:37  2013      0   02:56:33  1858      0
+ 14   03:29:52  2029      0   07:48:24  2276      0
+ 13   07:01:08  3618      0   07:54:57  2943      0
+ 12   13:42:59  5625      0   14:44:39  5531      0
+ 11       >24h  8081      0       >24h  7798      0
+ 10       >24h  8871      0       >24h  7913      0
+  9       >24h  7715      0       >24h  7710      0
+  8   03:38:15  3098      0   03:41:57  3043      0
+  7   14:44:10  8580      0   18:12:35  6291      0
+  6   04:03:40  4066      0   04:10:58  3896      0
+  5   03:31:49  4429      0   03:35:57  4222      0
+  4   05:45:21  5639      0   05:50:53  4947      0
+  3   06:50:23  4324      0   07:16:00  2782      0
+  2   04:31:03  4340      0   06:10:36  4825      0
+  1   05:56:01  5021      0   06:15:08  4147      0
+
