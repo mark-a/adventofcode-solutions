@@ -1,7 +1,7 @@
 # adventofcode.com : solutions
 My solutions for http://adventofcode.com/.
 
-2015: Mostly Ruby. Some crystal lang.
+2015: Mostly Ruby. Some crystal.
 
 2016: JavaScript.
 
