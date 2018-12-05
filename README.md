@@ -1,4 +1,4 @@
-# adventofcode.com : solutions
+# adventofcode.com: solutions
 My solutions for http://adventofcode.com/.
 
 2015: Mostly Ruby. Some crystal.
