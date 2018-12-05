@@ -1,8 +1,10 @@
-# adventofcode.com : solutions
+# adventofcode.com: solutions
 My solutions for http://adventofcode.com/.
 
-2015: Mostly Ruby.
+2015: Mostly Ruby. Some crystal.
 
 2016: JavaScript.
 
 2017: Rust.
+
+2018: Ruby again.

@@ -1,33 +1,3 @@
-
-Advent of Code <https://adventofcode.com/>
-
-  * [About] <https://adventofcode.com/2017/about>
-  * [AoC++] <https://adventofcode.com/2017/support>
-  * [Events] <https://adventofcode.com/2017/events>
-  * [Settings] <https://adventofcode.com/2017/settings>
-  * [Log Out] <https://adventofcode.com/2017/auth/logout>
-
-mark-a 50*
-
-
-   var y=2017 <https://adventofcode.com/2017>;
-
-  * [Calendar] <https://adventofcode.com/2017>
-  * [Leaderboard] <https://adventofcode.com/2017/leaderboard>
-  * [Stats] <https://adventofcode.com/2017/stats>
-  * [Sponsors] <https://adventofcode.com/2017/sponsors>
-
-Our sponsors <https://adventofcode.com/2017/sponsors> help make Advent
-of Code possible:
-
-SmartyStreets <http://smartystreets.com/aoc> - U2VuZGluZyBDaH
-Jpc3RtYXMgY2Fy ZHMgdG8gYmFkIG FkZHJlc3Nlcz8K
-
-By popular demand, there are now AoC-themed objects available (until
-Jan. 3rd)! Get them shipped from the US
-<https://teespring.com/advent-of-code> or from Europe
-<https://teespring.com/advent-of-code-eu>.
-
 These are your personal leaderboard statistics. /Rank/ is your position
 on that leaderboard: 1 means you were the first person to get that star,
 2 means the second, 100 means the 100th, etc. /Score/ is the number of
