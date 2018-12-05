@@ -5,9 +5,11 @@ authors:
   - your-name-here <your-email-here>
 
 targets:
-  day_4:
-    main: src/day_4.cr
+  day_4_1:
+    main: src/day_4_1.cr
+  day_4_2:
+    main: src/day_4_2.cr
 
-crystal: 0.26.0
+crystal: 0.27.0
 
 license: MIT

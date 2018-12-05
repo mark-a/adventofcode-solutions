@@ -1,0 +1,13 @@
+name: day_9
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+targets:
+  day_9:
+    main: src/day_9.cr
+
+crystal: 0.27.0
+
+license: MIT
