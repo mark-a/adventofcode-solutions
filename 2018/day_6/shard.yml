@@ -1,0 +1,13 @@
+name: day_6
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+targets:
+  day_6:
+    main: src/day_6.cr
+
+crystal: 0.27.0
+
+license: MIT
