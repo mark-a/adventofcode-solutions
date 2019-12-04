@@ -54,8 +54,8 @@ txt.read.each_line.with_index do |line,index|
   end
 end
 
-GRID.select{|_,value| value.keys.size == 2}.sort_by{|_,value| value.values(&:sum).sum }.each do |key, value|
-  puts "crossing at: #{key.inspect} (steps: #{ value.values(&:sum).sum  })"
+GRID.select{|_,value| value.keys.size == 2}.sort_by{|_,value| value.values.sum }.each do |key, value|
+  puts "crossing at: #{key.inspect} (steps: #{ value.values.sum  })"
 end
 
 
