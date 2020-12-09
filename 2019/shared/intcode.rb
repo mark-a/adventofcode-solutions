@@ -34,8 +34,8 @@ class Intcode
 
   attr_reader :times_run, :jumps_taken
 
-  def initialize(mem, sparse: false, valid_ops: nil)
-    @ops = valid_ops ? OPS.slice(*valid_ops).freeze : OPS
+  def initialize(mem, sparse: false)
+    @ops = OPS
     @sparse = sparse
     @mem = sparse ? mem.each_with_index.to_h { |x, i| [i, x] }.tap { |h| h.default = 0 } : mem.dup
     @pos = 0
